@@ -1,47 +1,53 @@
 int ledGreen = 6;
 int ledYellow = 7;
 int ledRed = 8;
-int button = 3;
+int buttonPin = 3;
 int i=0;
-int var=0;
-
+int button=0;
+int potenciometer = 0;
+int delTime = 0;
 void setup() {
   pinMode(ledGreen,OUTPUT);
   pinMode(ledYellow,OUTPUT);
   pinMode(ledRed,OUTPUT);
   pinMode(button,INPUT);
+  pinMode(A1,INPUT);
 
 }
 
  void loop() {
-  var=digitalRead(button);
+  potenciometer = analogRead(A1);
+  delTime=potenciometer*3;      
+  button=digitalRead(buttonPin);
   delay(10);
-  if(var == LOW){
+   
+  if(button == LOW){
 
     digitalWrite(ledYellow, LOW);
     digitalWrite(ledRed, LOW);
     digitalWrite(ledGreen, HIGH);
-    delay(1500);
+    delay(delTime);
     
     do{
       digitalWrite(ledGreen, LOW);
-      delay(250);
+      delay(delTime/4);
       digitalWrite(ledGreen, HIGH);
-      delay(250);
+      delay(delTime/4);
       i++;
-      }while (i != 4);
+    }while (i != 4);
       
     i=0;
     digitalWrite(ledGreen, LOW);
     digitalWrite(ledYellow,HIGH);
-    delay(1500); 
+    delay(delTime); 
     digitalWrite(ledYellow, LOW);
     digitalWrite(ledRed, HIGH);
-    delay(1500);
+    delay(delTime);
     digitalWrite(ledYellow, HIGH);
-    delay(1500);
+    delay(delTime);
     
   }else{
+    
     digitalWrite(ledRed,LOW); 
     digitalWrite(ledYellow, LOW);
     digitalWrite(ledGreen, HIGH);
